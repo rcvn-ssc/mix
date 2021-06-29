@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/ssc-mix/static/css/main.f5cbbf4b.chunk.css",
+    "main.js": "/ssc-mix/static/js/main.769173aa.chunk.js",
+    "main.js.map": "/ssc-mix/static/js/main.769173aa.chunk.js.map",
+    "runtime-main.js": "/ssc-mix/static/js/runtime-main.e7b6a767.js",
+    "runtime-main.js.map": "/ssc-mix/static/js/runtime-main.e7b6a767.js.map",
+    "static/js/2.b6aacb2d.chunk.js": "/ssc-mix/static/js/2.b6aacb2d.chunk.js",
+    "static/js/2.b6aacb2d.chunk.js.map": "/ssc-mix/static/js/2.b6aacb2d.chunk.js.map",
+    "index.html": "/ssc-mix/index.html",
+    "static/css/main.f5cbbf4b.chunk.css.map": "/ssc-mix/static/css/main.f5cbbf4b.chunk.css.map",
+    "static/js/2.b6aacb2d.chunk.js.LICENSE.txt": "/ssc-mix/static/js/2.b6aacb2d.chunk.js.LICENSE.txt",
+    "static/media/background.d6c29e26.svg": "/ssc-mix/static/media/background.d6c29e26.svg",
+    "static/media/banner_background_2.9fd752b0.jpg": "/ssc-mix/static/media/banner_background_2.9fd752b0.jpg",
+    "static/media/banner_title.d943bd68.png": "/ssc-mix/static/media/banner_title.d943bd68.png",
+    "static/media/content.466de2e1.svg": "/ssc-mix/static/media/content.466de2e1.svg",
+    "static/media/logo.0fffdae2.png": "/ssc-mix/static/media/logo.0fffdae2.png",
+    "static/media/user.1f2b6f5f.png": "/ssc-mix/static/media/user.1f2b6f5f.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e7b6a767.js",
+    "static/js/2.b6aacb2d.chunk.js",
+    "static/css/main.f5cbbf4b.chunk.css",
+    "static/js/main.769173aa.chunk.js"
+  ]
+}
