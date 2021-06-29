@@ -1,0 +1,45 @@
+version: '3'
+services:
+
+  #Node Service
+  ssc_mix_node:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    container_name: ssc_mix_node
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../app/:/app/
+    networks:
+      - app-network
+
+  #Nginx Service
+  ssc_mix_nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: ssc_mix_nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../app/build/:/var/www/html/public/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  dbdata:
+    driver: local

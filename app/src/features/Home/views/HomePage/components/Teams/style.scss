@@ -1,0 +1,29 @@
+.teams-wrapper{
+    .home-teams{
+        overflow: hidden;
+        height: 100%;
+        padding: 64px 24px;
+        max-width: 1200px;
+        position: relative;
+        margin: auto;
+        will-change: transform;
+
+        .member-wrapper{
+            margin-left: -36px;
+            margin-right: -36px;
+
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+
+            .block{
+                margin-bottom: 48px;
+                padding-left: 36px;
+                padding-right: 36px;
+            }
+
+            @import "../Member/style";
+        }
+    }
+}

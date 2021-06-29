@@ -1,0 +1,12 @@
+.empty-wrapper {
+    text-align: center;
+    padding: $distanceBlock 0;
+    .empty-title{
+        @include set-font($fontSizeMedium, $lineHeightMedium, $colorWarning);
+        margin-bottom: $distanceItem;
+    }
+    .empty-description{
+        font-style: italic;
+        color: $colorGray;
+    }
+}

@@ -1,0 +1,18 @@
+@import "variables";
+
+@mixin set-font(
+    $fontSize: $fontSizeDefault,
+    $lineHeight: $lineHeightDefault,
+    $fontColor: #000000) {
+    font-size: $fontSize;
+    color: $fontColor;
+    line-height: $lineHeight;
+}
+
+@mixin box-shadow-default($color: rgba(50, 250, 255, .75)){
+    box-shadow: 0 0 10px $color;
+}
+
+@mixin transition-default(){
+    transition: all linear 0.3s;
+}

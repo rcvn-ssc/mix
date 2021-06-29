@@ -1,0 +1,13 @@
+@import "views/Login/style";
+@import "views/Register/style";
+
+.form-message{
+    text-align: center;
+    font-weight: bold;
+    color: red;
+    margin-bottom: $distanceComponent;
+}
+
+.form-option{
+    text-align: right;
+}

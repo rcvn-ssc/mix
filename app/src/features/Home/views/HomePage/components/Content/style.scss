@@ -1,0 +1,29 @@
+.content-wrapper{
+    height: 480px;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    padding-top: 96px;
+
+    .home-content{
+        .content-button{
+            text-align: center;
+            .button{
+                box-shadow: 0 8px 16px #0554b7;
+                background: linear-gradient(to right,#05cbff,#1e5aff) !important;
+                height: 42px;
+                line-height: 42px;
+                font-size: 14px;
+                border: 0;
+                border-radius: 21px;
+                color: #fff;
+                width: 128px;
+                padding: 0 15px;
+                display: inline-block;
+                transition: transform .3s,box-shadow .3s;
+            }
+        }
+    }
+}

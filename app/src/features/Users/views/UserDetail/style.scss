@@ -1,0 +1,45 @@
+.user-detail {
+    .user-data-wrapper {
+        .user-data {
+            margin-bottom: $distanceComponent;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .user-data.avatar-wrapper {
+            margin-bottom: $distanceBlock;
+            .avatar-label {
+                margin-top: $distanceBlock;
+                margin-bottom: $distanceItem;
+                @include set-font($fontSizeMedium, $lineHeightMedium, $colorBlack);
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            .avatar-description {
+                margin-bottom: $distanceComponent;
+                @include set-font($fontSizeDefault, $lineHeightDefault, $colorBlack);
+            }
+        }
+
+        .account-wrapper {
+            .account-data {
+                font-weight: bold;
+                margin-bottom: $distanceItem;
+                .account-data-key {
+                    color: $colorGray;
+                }
+
+                .account-data-value {
+                    float: right;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,113 @@
+$colorHeader: #1d3a48d1;
+.header {
+    background: $colorHeader;
+    min-width: 100%;
+    max-width: 100%;
+    z-index: $zIndexHeader;
+    position: fixed;
+    top: 0;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, .1);
+    text-align: left;
+
+    .header-content {
+        padding: 0 24px;
+
+        height: 100%;
+        max-width: 1200px;
+        position: relative;
+        margin: auto;
+
+        .header-logo {
+            display: inline-block;
+            position: relative;
+            line-height: $headerHeight;
+            margin-right: $distanceComponent;
+        }
+
+        .header-menu {
+            display: inline-block;
+
+            .menu-content {
+                line-height: $headerHeight;
+                height: $headerHeight;
+                white-space: nowrap;
+                margin: 0;
+                list-style-type: none;
+                padding-left: 12px;
+
+                .menu-item {
+                    margin-top: 0;
+                    display: inline-block;
+                    padding: 0 24px 0 0;
+                    font-weight: bolder;
+
+                    &:last-child {
+                        padding-right: 0;
+                    }
+
+                    a {
+                        text-decoration: none;
+                        color: $colorWhite;
+
+                        &:hover {
+                            color: $colorPrimaryHighLight;
+                        }
+                    }
+                }
+
+                .menu-item.active {
+                    color: $colorPrimarySlowLight;
+                }
+            }
+        }
+
+        .auth-menu {
+            float: right;
+            .menu-content{
+                display: inline-block;
+                line-height: 64px;
+                height: 60px;
+                text-decoration: none;
+                color: $colorWhite;
+                font-weight: bolder;
+
+                &:hover {
+                    color: $colorPrimaryHighLight;
+                }
+
+                .avatar{
+                    margin-right: 4px;
+                }
+                .full-name{
+                    line-height: 32px;
+                }
+            }
+        }
+    }
+}
+
+.header.transparent {
+    background: rgba(39, 75, 80, 0.2);
+
+    .header-content {
+        .header-menu {
+            .menu-content {
+                .menu-item {
+                    a {
+                        color: $colorWhiteOutFocus;
+
+                        &:hover {
+                            color: $colorWhite;
+                        }
+                    }
+                }
+
+                .menu-item.active {
+                    a {
+                        color: $colorWhite;
+                    }
+                }
+            }
+        }
+    }
+}

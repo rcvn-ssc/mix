@@ -1,0 +1,44 @@
+.member {
+    .member-image {
+        cursor: pointer;
+        img {
+            width: 100%;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    }
+
+    .member-description-wrapper {
+        padding-left: $distanceComponent;
+
+        button {
+            padding: unset;
+        }
+
+        .member-username {
+            font-size: 18px;
+            color: #000;
+            text-transform: uppercase;
+            padding: unset;
+
+            &:hover {
+                color: $colorPrimarySlowLight;
+                text-decoration-line: underline;
+            }
+
+            margin-bottom: 2px;
+        }
+
+        .member-title {
+            font-size: $fontSizeDefault;
+            color: $colorGray;
+            margin-bottom: 4px;
+        }
+
+        .member-description {
+            font-size: $fontSizeDefault;
+            color: $colorGray;
+        }
+    }
+}
