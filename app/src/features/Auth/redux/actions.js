@@ -1,26 +1,60 @@
 import {
+    LOGIN_ACTION,
     SET_TOKEN_ACTION,
     CLEAR_TOKEN_ACTION,
     ARG_TOKEN,
+    PENDING_ACTION, REGISTER_ACTION,
 } from "./constants";
-import {
-    post,
-    CODE_SUCCESS
-} from "../../../common/crud";
+import {default as db, findOne, insert} from "../../../database/firestore";
+import moment from "moment";
 
-const env = require('../../../config/env')
+const password_hash = require('password-hash');
+const ref           = db.collection('mst_user')
 
-export function login(data) {
-    const url = env.API_URL + 'auth/get-token'
-    return dispatch => {
-        return post(dispatch, url, data, {}, setTokenAction)
+export function login(params) {
+    const username = params.username;
+    const password = params.password;
+    let message    = '';
+    if (username === undefined || username === null || username === '') {
+        message = 'Username is required.'
+    } else if (password === undefined || password === null || password === '') {
+        message = 'Password is required.'
+    }
+
+    return async dispatch => {
+        dispatch(pendingAction())
+        if (message === '') {
+            const res  = await findOne(ref.where('username', '==', username))
+            const data = res.data;
+            if (data === null) {
+                message = 'Not found ' + username + '.';
+            } else if (password_hash.verify(password, data.password) === false) {
+                message = 'Password incorrect.'
+            } else {
+                dispatch(setTokenAction(data))
+            }
+        }
+
+        dispatch(loginAction(message))
     }
 }
 
-export function setTokenAction(dispatch, data) {
-    if (data.code === CODE_SUCCESS) {
-        localStorage.setItem(ARG_TOKEN, JSON.stringify(data.data))
-    }
+export function pendingAction() {
+    return {
+        type: PENDING_ACTION,
+        payload: null
+    };
+}
+
+export function loginAction(message) {
+    return {
+        type: LOGIN_ACTION,
+        payload: message
+    };
+}
+
+export function setTokenAction(data) {
+    localStorage.setItem(ARG_TOKEN, JSON.stringify(data))
     return {
         type: SET_TOKEN_ACTION,
         payload: null
@@ -41,9 +75,48 @@ export function clearTokenAction() {
     };
 }
 
-export function register(data) {
-    const url = env.API_URL + 'users/insert'
-    return dispatch => {
-        return post(dispatch, url, data, {})
+export function register(params) {
+    const username  = params.username;
+    const full_name = params.full_name;
+    const password  = params.password;
+    let message     = '';
+    if (username === undefined || username === null || username === '') {
+        message = 'Username is required.'
+    } else if (full_name === undefined || full_name === null || full_name === '') {
+        message = 'Full name is required.'
+    } else if (password === undefined || password === null || password === '') {
+        message = 'Password is required.'
     }
+
+    return async dispatch => {
+        dispatch(pendingAction())
+        if (message === '') {
+            const res  = await findOne(ref.where('username', '==', username))
+            const data = res.data;
+            if (data !== null) {
+                message = username + ' already exist.';
+            } else {
+                const res_insert = await insert(ref, {
+                    username: params.username,
+                    full_name: params.full_name,
+                    password: password_hash.generate(password),
+                    role: '',
+                    created_at: moment().format(),
+                })
+
+                message = res_insert.error.length === 0 ? 'Register success.' : res_insert.error;
+            }
+            dispatch(registerAction(message))
+        } else {
+            dispatch(registerAction(message))
+        }
+
+    }
+}
+
+export function registerAction(message) {
+    return {
+        type: REGISTER_ACTION,
+        payload: message
+    };
 }

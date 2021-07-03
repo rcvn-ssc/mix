@@ -1,3 +1,0 @@
-export const RESPONSE_ACTION = 'RESPONSE_ACTION'
-export const PENDING_ACTION  = 'PENDING_ACTION'
-export const RESET_ACTION    = 'RESET_ACTION'

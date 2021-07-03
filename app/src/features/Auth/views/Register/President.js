@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 class President extends Component {
     render() {
-        const message = this.props.crud.message;
+        const message = this.props.message;
         return (
             <div className="feature-login">
                 <div className="form-message">
@@ -40,7 +40,7 @@ class President extends Component {
                         <Button type="primary"
                                 htmlType="submit"
                                 size="large"
-                                disabled={this.props.crud.pending}
+                                disabled={this.props.pending}
                                 block>
                             Register
                         </Button>

@@ -5,9 +5,7 @@ import {DataEmpty} from "../../../../layouts/DataEmpty";
 
 class ListTransactions extends Component {
     render() {
-        const pending         = this.props.pending;
-        const dataSource      = this.props.dataSource;
-        const formatCreatedAt = this.props.formatCreatedAt;
+        const {dataSource, pending, formatCreatedAt} = this.props;
         return (
             <div className="data-list list-transactions">
                 {

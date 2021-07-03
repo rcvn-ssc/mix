@@ -9,12 +9,10 @@ class Container extends Component {
     }
 
     render() {
-        let crud = this.props.crud;
-        if (crud.status === 200){
-            crud.message = "Register success"
-        }
+        let {message, pending} = this.props.auth;
         return (<President
-            crud={this.props.crud}
+            message={message}
+            pending={pending}
             handleRegister={this.handleRegister}/>)
     }
 }
@@ -31,7 +29,6 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     return {
         auth: state.auth,
-        crud: state.crud
     }
 }
 

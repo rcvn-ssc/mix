@@ -1,3 +1,6 @@
+export const LOGIN_ACTION       = 'LOGIN_ACTION'
+export const REGISTER_ACTION    = 'REGISTER_ACTION'
+export const PENDING_ACTION     = 'PENDING_ACTION'
 export const SET_TOKEN_ACTION   = 'SET_TOKEN_ACTION'
 export const CLEAR_TOKEN_ACTION = 'CLEAR_TOKEN_ACTION'
 export const ARG_TOKEN          = 'ssc'

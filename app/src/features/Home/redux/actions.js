@@ -8,7 +8,7 @@ export function fetchUser() {
         let data = [];
         dispatch(fetchUsersPendingAction());
         const res = await fetchList(refMstUser);
-        if (res.error !== []) {
+        if (res.error.length === 0) {
             data = res.data;
         }
         dispatch(fetchUsersAction(data));

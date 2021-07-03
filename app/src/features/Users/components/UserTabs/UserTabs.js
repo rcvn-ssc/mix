@@ -3,23 +3,20 @@ import {Tabs} from "antd";
 import {CreditCardOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import ListTransactions from "./ListTransactions";
 import ListOrders from "./ListOrders";
-import moment from 'react-moment'
+import moment from 'moment'
 
 class UserTabs extends Component {
     formatCreatedAt = (created_at) => {
-        const date = new Date(created_at)
-        let result = date.toUTCString()
-        if (created_at === null || result === 'Invalid Date') {
+        const date = moment(created_at)
+        let result = date.format('YYYY-MM-DD HH:mm:ss')
+        if (created_at === null || result === 'Invalid date') {
             result = "Not found created time"
         }
         return result;
     }
 
     render() {
-        const orders                   = this.props.orders;
-        const pendingFetchOrders       = this.props.pendingFetchOrders;
-        const transactions             = this.props.transactions;
-        const pendingFetchTransactions = this.props.pendingFetchTransactions;
+        const {orders, pendingFetchOrders, transactions, pendingFetchTransactions} = this.props;
         return (
             <Tabs className="user-tabs">
                 <Tabs.TabPane tab={<span><CreditCardOutlined/> Transactions</span>}

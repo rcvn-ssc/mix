@@ -12,6 +12,8 @@ const initialState = {
     full_name: null,
     token: null,
     role: null,
+    message: '',
+    pending: false,
 };
 
 export default initialState;

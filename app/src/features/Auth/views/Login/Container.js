@@ -20,7 +20,7 @@ class Container extends Component {
         }
 
         return (<President
-            crud={this.props.crud}
+            auth={auth}
             handleLogin={this.handleLogin}
         />)
     }
@@ -36,8 +36,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
     return {
-        auth: state.auth,
-        crud: state.crud
+        auth: state.auth
     }
 }
 

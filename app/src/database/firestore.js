@@ -6,6 +6,7 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore().collection('RIVER_CRANE_DEV').doc('ssc_lunch')
 
+// Fetch data list
 export const fetchList = async (ref) => {
     let res = {
         data: [],
@@ -21,12 +22,13 @@ export const fetchList = async (ref) => {
             }
         )
     }).catch((error) => {
-        res.error = error;
+        res.error.push(error.message)
     })
 
     return res;
 }
 
+// Find one
 export const findOne = async (ref) => {
     let res = {
         data: null,
@@ -44,7 +46,23 @@ export const findOne = async (ref) => {
 
         res.data = data;
     }).catch((error) => {
-        res = error
+        res.error.push(error.message)
+    })
+
+    return res;
+}
+
+// Insert data
+export const insert = async (ref, data) => {
+    let res = {
+        data: null,
+        error: []
+    };
+
+    await ref.add(data).then(() => {
+        res.data = data;
+    }).catch((error) => {
+        res.error.push(error.message)
     })
 
     return res;

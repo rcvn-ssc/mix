@@ -5,7 +5,7 @@ import {UserOutlined, LockOutlined} from '@ant-design/icons';
 
 class President extends Component {
     render() {
-        const message = this.props.crud.message;
+        const {message, pending} = this.props.auth;
         return (
             <div className="feature-login">
                 <div className="form-message">
@@ -34,7 +34,7 @@ class President extends Component {
                         <Button type="primary"
                                 htmlType="submit"
                                 size="large"
-                                disabled={this.props.crud.pending}
+                                disabled={pending}
                                 block>
                             Log in
                         </Button>

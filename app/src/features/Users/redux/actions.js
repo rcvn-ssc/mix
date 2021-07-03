@@ -18,7 +18,7 @@ export function fetchUserGeneral(username) {
         if (res.data !== null) {
             const res_trans = await fetchList(refMstUser.doc(res.data.id).collection('transactions').orderBy('created_at', 'desc'))
             let balance = 0;
-            if (res_trans.error !== []) {
+            if (res_trans.error.length === 0) {
                 for (const res_tran of res_trans.data) {
                     balance += parseInt(res_tran.amount)
                 }
@@ -51,7 +51,7 @@ export function fetchUserTransactions(username) {
         const res = await findOne(refMstUser.where('username', '==', username));
         if (res.data !== null) {
             const res_trans = await fetchList(refMstUser.doc(res.data.id).collection('transactions').orderBy('created_at', 'desc'))
-            if (res_trans.error !== []) {
+            if (res_trans.error.length === 0) {
                 trans = res_trans.data;
             }
         }
@@ -81,7 +81,7 @@ export function fetchUserOrders(username) {
         const res = await findOne(refMstUser.where('username', '==', username));
         if (res.data !== null) {
             const res_orders = await fetchList(refMstUser.doc(res.data.id).collection('orders').orderBy('created_at', 'desc'))
-            if (res_orders.error !== []) {
+            if (res_orders.error.length === 0) {
                 orders = res_orders.data;
             }
         }

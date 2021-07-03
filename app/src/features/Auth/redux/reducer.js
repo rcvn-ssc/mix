@@ -1,13 +1,32 @@
 import initialState from "./initialState";
 import {
+    LOGIN_ACTION,
     SET_TOKEN_ACTION,
     CLEAR_TOKEN_ACTION,
-    ARG_TOKEN
+    ARG_TOKEN, PENDING_ACTION, REGISTER_ACTION
 } from "./constants";
 
 export function reducer(state = initialState, action) {
     const defaultState = loadStateFromLocal();
     switch (action.type) {
+        case PENDING_ACTION: {
+            return {
+                ...state,
+                pending: true
+            }
+        }
+        case LOGIN_ACTION:
+            return {
+                ...state,
+                pending: false,
+                message: action.payload
+            }
+        case REGISTER_ACTION:
+            return {
+                ...state,
+                pending: false,
+                message: action.payload
+            }
         case SET_TOKEN_ACTION:
         case CLEAR_TOKEN_ACTION:
         default:
@@ -26,7 +45,7 @@ function loadStateFromLocal() {
             id: payload.id,
             username: payload.username,
             full_name: payload.full_name,
-            token: payload.token,
+            token: null,
             role: payload.role,
             message: null,
         }
