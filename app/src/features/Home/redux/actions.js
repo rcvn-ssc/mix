@@ -1,25 +1,17 @@
-import db from "../../../database/firestore"
+import {default as db, fetchList} from "../../../database/firestore"
 import {FETCH_USERS, FETCH_USERS_PENDING} from "./constants";
 
-const refMstUser = db.collection('mst_user')
+const refMstUser = db.collection('mst_user').orderBy('created_at')
 
 export function fetchUser() {
-    return dispatch => {
+    return async dispatch => {
+        let data = [];
         dispatch(fetchUsersPendingAction());
-        let list = [];
-        return refMstUser.get().then(snapshot => {
-            snapshot.forEach(doc => {
-                let item = {
-                    id: doc.id,
-                    ...doc.data()
-                }
-                list.push(item);
-            });
-        }).catch(error => {
-            console.log(error)
-        }).finally(() => {
-            dispatch(fetchUsersAction(dispatch, {data: list}));
-        });
+        const res = await fetchList(refMstUser);
+        if (res.error !== []) {
+            data = res.data;
+        }
+        dispatch(fetchUsersAction(data));
     }
 }
 
@@ -30,9 +22,9 @@ export function fetchUsersPendingAction() {
     };
 }
 
-export function fetchUsersAction(dispatch, data) {
+export function fetchUsersAction(data) {
     return {
         type: FETCH_USERS,
-        payload: data.data
+        payload: data
     };
 }

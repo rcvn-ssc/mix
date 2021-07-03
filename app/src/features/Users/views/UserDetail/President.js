@@ -7,14 +7,15 @@ import {
 
 class President extends Component {
     render() {
-        const errorMessage             = this.props.errorMessage;
-        const user                     = this.props.user
-        const pendingFetchGeneral      = this.props.pendingFetchGeneral
-        const orders                   = this.props.orders
-        const pendingFetchOrders       = this.props.pendingFetchOrders
-        const transactions             = this.props.transactions
-        const pendingFetchTransactions = this.props.pendingFetchTransactions
-        const generalMenu              = this.props.generalMenu
+        const {
+            user,
+            pendingFetchGeneral,
+            orders,
+            pendingFetchOrders,
+            transactions,
+            pendingFetchTransactions,
+            generalMenu
+        } = this.props
         return (
             <div className="features feature-user">
                 <Row gutter={24}
@@ -23,7 +24,6 @@ class President extends Component {
                         <UserGeneral
                             user={user}
                             pendingFetchGeneral={pendingFetchGeneral}
-                            errorMessage={errorMessage}
                             generalMenu={generalMenu}
                         />
                     </Col>

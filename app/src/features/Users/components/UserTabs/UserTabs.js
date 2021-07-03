@@ -3,11 +3,12 @@ import {Tabs} from "antd";
 import {CreditCardOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import ListTransactions from "./ListTransactions";
 import ListOrders from "./ListOrders";
+import moment from 'react-moment'
 
 class UserTabs extends Component {
     formatCreatedAt = (created_at) => {
         const date = new Date(created_at)
-        let result = date.toDateString()
+        let result = date.toUTCString()
         if (created_at === null || result === 'Invalid Date') {
             result = "Not found created time"
         }

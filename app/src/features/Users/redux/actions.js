@@ -6,34 +6,26 @@ import {
     PENDING_FETCH_USER_ORDERS_ACTION,
     PENDING_FETCH_USER_TRANSACTIONS_ACTION,
 } from "./constants";
-import db from "../../../database/firestore";
+import {default as db, fetchList, findOne} from "../../../database/firestore";
 
 const refMstUser = db.collection('mst_user')
 
 // ========================== User general ==========================
 export function fetchUserGeneral(username) {
-    return dispatch => {
+    return async dispatch => {
         dispatch(pendingFetchUserGeneralAction())
-        return refMstUser.where('username', '==', username).limit(1).get().then(snapshot => {
-            let data = null;
-            snapshot.forEach(doc => {
-                data = {
-                    id: doc.id,
-                    ...doc.data(),
-                    balance: 0
+        const res = await findOne(refMstUser.where('username', '==', username));
+        if (res.data !== null) {
+            const res_trans = await fetchList(refMstUser.doc(res.data.id).collection('transactions').orderBy('created_at', 'desc'))
+            let balance = 0;
+            if (res_trans.error !== []) {
+                for (const res_tran of res_trans.data) {
+                    balance += parseInt(res_tran.amount)
                 }
-
-                return refMstUser.doc(doc.id).collection('transactions').get().then(snapshot_tran => {
-                    let balance = 0;
-                    snapshot_tran.forEach(doc_tran => {
-                        balance += parseInt(doc_tran.data().amount)
-                    })
-                    data.balance = balance;
-                }).finally(() => {
-                    dispatch(fetchUserGeneralAction(dispatch, {data: data}));
-                });
-            });
-        })
+            }
+            res.data.balance = balance;
+        }
+        dispatch(fetchUserGeneralAction(res.data))
     }
 }
 
@@ -44,33 +36,26 @@ export function pendingFetchUserGeneralAction() {
     };
 }
 
-export function fetchUserGeneralAction(dispatch, data) {
+export function fetchUserGeneralAction(data) {
     return {
         type: FETCH_USER_GENERAL_ACTION,
-        payload: data.data
+        payload: data
     };
 }
 
 //========================== User transactions ==========================
 export function fetchUserTransactions(username) {
-    return dispatch => {
+    return async dispatch => {
         dispatch(pendingFetchUserTransactionsAction())
-        return refMstUser.where('username', '==', username).limit(1).get().then(snapshot => {
-            snapshot.forEach(doc => {
-                let list = [];
-                return refMstUser.doc(doc.id).collection('transactions').get().then(snapshot_tran => {
-                    snapshot_tran.forEach(doc_tran => {
-                        let item = {
-                            id: doc_tran.id,
-                            ...doc_tran.data()
-                        }
-                        list.push(item);
-                    })
-                }).finally(() => {
-                    dispatch(fetchUserTransactionAction(dispatch, {data: list}));
-                });
-            });
-        })
+        let trans = [];
+        const res = await findOne(refMstUser.where('username', '==', username));
+        if (res.data !== null) {
+            const res_trans = await fetchList(refMstUser.doc(res.data.id).collection('transactions').orderBy('created_at', 'desc'))
+            if (res_trans.error !== []) {
+                trans = res_trans.data;
+            }
+        }
+        dispatch(fetchUserTransactionAction(trans));
     }
 }
 
@@ -81,33 +66,26 @@ export function pendingFetchUserTransactionsAction() {
     };
 }
 
-export function fetchUserTransactionAction(dispatch, data) {
+export function fetchUserTransactionAction(data) {
     return {
         type: FETCH_USER_TRANSACTIONS_ACTION,
-        payload: data.data !== undefined && data.data !== null ? data.data : []
+        payload: data
     };
 }
 
 // ========================== User orders ==========================
 export function fetchUserOrders(username) {
-    return dispatch => {
+    return async dispatch => {
         dispatch(pendingFetchUserOrdersAction())
-        return refMstUser.where('username', '==', username).limit(1).get().then(snapshot => {
-            snapshot.forEach(doc => {
-                let list = [];
-                return refMstUser.doc(doc.id).collection('orders').get().then(snapshot_order => {
-                    snapshot_order.forEach(doc_order => {
-                        let item = {
-                            id: doc_order.id,
-                            ...doc_order.data()
-                        }
-                        list.push(item);
-                    })
-                }).finally(() => {
-                    dispatch(fetchUserOrdersAction(dispatch, {data: list}));
-                });
-            });
-        })
+        let orders = [];
+        const res = await findOne(refMstUser.where('username', '==', username));
+        if (res.data !== null) {
+            const res_orders = await fetchList(refMstUser.doc(res.data.id).collection('orders').orderBy('created_at', 'desc'))
+            if (res_orders.error !== []) {
+                orders = res_orders.data;
+            }
+        }
+        dispatch(fetchUserOrdersAction(orders));
     }
 }
 
@@ -118,9 +96,9 @@ export function pendingFetchUserOrdersAction() {
     };
 }
 
-export function fetchUserOrdersAction(dispatch, data) {
+export function fetchUserOrdersAction(data) {
     return {
         type: FETCH_USER_ORDERS_ACTION,
-        payload: data.data !== undefined && data.data !== null ? data.data : []
+        payload: data
     };
 }

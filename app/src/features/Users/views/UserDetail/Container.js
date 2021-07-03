@@ -8,8 +8,8 @@ class Container extends Component {
     render() {
         const reducer = this.props.user;
         const generalMenu = [
-          'orders-create',
-          'transactions-create',
+            'orders-create',
+            'transactions-create',
         ];
         return (
             <President
@@ -25,9 +25,9 @@ class Container extends Component {
     }
 
     componentDidMount() {
-        const auth       = this.props.auth;
+        const auth = this.props.auth;
         const {username} = this.props.match.params;
-        const config     = {
+        const config = {
             headers: {Authorization: `Bearer ${auth.token}`}
         }
         this.props.fetchUserGeneral(username)

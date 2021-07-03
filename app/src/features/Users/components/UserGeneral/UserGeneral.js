@@ -37,8 +37,7 @@ class UserGeneral extends Component {
     }
 
     render() {
-        const user                = this.props.user
-        const pendingFetchGeneral = this.props.pendingFetchGeneral
+        const {user, pendingFetchGeneral} = this.props
         return (
             <Card title={
                 <div>
