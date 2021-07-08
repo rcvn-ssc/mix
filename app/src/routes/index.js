@@ -6,6 +6,7 @@ import {HomePage, ContactPage, AboutPage} from '../features/Home'
 import {UserDetail} from '../features/Users'
 import {Login, Register} from '../features/Auth'
 import {ErrorPage} from "../features/Exceptions";
+import {OrderLunchCreate} from "../features/OrderLunch";
 
 class Routes extends Component {
     render() {
@@ -41,6 +42,9 @@ class Routes extends Component {
                 <PublicRoute path="/users/:id" layout='App' exact={true}>
                     <UserDetail/>
                 </PublicRoute>
+                <PrivateRoute path="/order-lunch" layout='App' exact={true}>
+                    <OrderLunchCreate/>
+                </PrivateRoute>
                 {/*Private route*/}
 
                 <PublicRoute path="*">

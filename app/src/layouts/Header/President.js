@@ -15,6 +15,7 @@ class President extends Component {
         // Auth
         const auth          = this.props.auth;
         const authenticated = auth.id !== undefined && auth.id !== null;
+        const isAdmin       = auth.role === 'admin';
 
         return (
             <header className={classHeader}>
@@ -27,6 +28,12 @@ class President extends Component {
                             <li className={pathName === "/" ? classItemActive : classItem}>
                                 <Link to="/">Home</Link>
                             </li>
+                            {
+                                isAdmin ?
+                                <li className={pathName === "/" ? classItemActive : classItem}>
+                                    <Link to="/order-lunch">Order Lunch</Link>
+                                </li> : null
+                            }
                             <li className={pathName === "/contact" ? classItemActive : classItem}>
                                 <Link to="/contact">Contact</Link>
                             </li>
@@ -49,10 +56,10 @@ class President extends Component {
                                             </Menu.Item>
                                         </Menu>
                                     }>
-                                        <Link to={'/users/' + auth.username}>
+                                        <div>
                                             <Avatar className="avatar" src={img_user}/>
                                             <span className="full-name">{auth.full_name}</span>
-                                        </Link>
+                                        </div>
                                     </Dropdown>
                                 )
                                 :
