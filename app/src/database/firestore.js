@@ -4,8 +4,9 @@ import 'firebase/firestore';
 
 firebase.initializeApp(firebaseConfig);
 
-export const firestore = firebase.firestore();
-const db          = firebase.firestore().collection('RIVER_CRANE_DEV').doc('ssc_lunch')
+export const firestore  = firebase.firestore();
+const db                = firebase.firestore().collection('RIVER_CRANE_DEV').doc('ssc_lunch')
+export const refMstUser = db.collection('mst_user')
 export default db
 
 // Fetch data list
@@ -30,8 +31,8 @@ export const fetchList = async (ref) => {
     return res;
 }
 
-// Find one
-export const findOne = async (ref) => {
+// Find by field
+export const findByField = async (ref) => {
     let res = {
         data : null,
         error: []
@@ -47,6 +48,24 @@ export const findOne = async (ref) => {
         )
 
         res.data = data;
+    }).catch((error) => {
+        res.error.push(error.message)
+    })
+
+    return res;
+}
+
+// Find one
+export const findOne = async (ref, id) => {
+    let res = {
+        data : null,
+        error: []
+    };
+    await ref.doc(id).get().then(snapshot => {
+        res.data = {
+            id: snapshot.id,
+            ...snapshot.data()
+        };
     }).catch((error) => {
         res.error.push(error.message)
     })
@@ -71,4 +90,12 @@ export const insert = async (ref, data) => {
     })
 
     return res;
+}
+
+// Check is admin
+export const isAdmin = async (id) => {
+    const auth = await findOne(refMstUser, id);
+    const data = auth.data === null ? {} : auth.data;
+
+    return data.role === 'admin'
 }

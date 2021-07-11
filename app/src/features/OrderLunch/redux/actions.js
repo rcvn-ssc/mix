@@ -5,7 +5,7 @@ import {
     ORDER_LUNCH_INSERT_MULTI_PENDING_ACTION,
 } from "./constants";
 
-import {default as db, fetchList, firestore} from "../../../database/firestore"
+import {default as db, fetchList, isAdmin, firestore} from "../../../database/firestore"
 import {pushMessageError, pushMessageLoading, pushMessageSuccess} from "../../../layouts";
 
 const refMstUser = db.collection('mst_user')
@@ -36,7 +36,7 @@ export function fetchUsersAction(data) {
     };
 }
 
-export function insertMulti(listUsername, amount, description) {
+export function insertMulti(listUsername, amount, description, adminId, adminUsername) {
     const createdAt = new Date().toISOString();
     if (description === null || description === '' || description === undefined) {
         description = 'Order ' + createdAt
@@ -45,10 +45,15 @@ export function insertMulti(listUsername, amount, description) {
         let message = '';
         pushMessageLoading()
         dispatch(insertMultiPendingAction());
-        if (listUsername.length === 0) {
-            message = 'Have not users selected'
+
+        const auth = await isAdmin(adminId);
+
+        if (auth === false) {
+            message = 'Permission denied.'
+        } else if (listUsername.length === 0) {
+            message = 'Have not users selected.'
         } else if (amount === 0 || amount === '' || amount === null) {
-            message = 'Amount invalid'
+            message = 'Amount invalid.'
         } else {
             const res   = await fetchList(refMstUser.where('username', 'in', listUsername));
             const data  = res.data;
@@ -70,7 +75,7 @@ export function insertMulti(listUsername, amount, description) {
                         return user.id;
                     })
 
-                    message = await insertOrderMulti(refMstUser, listId, amount, createdAt, description)
+                    message = await insertOrderMulti(refMstUser, listId, amount, createdAt, description, adminUsername)
                 } else {
                     message = listNotFound.toString() + ' not found.'
                 }
@@ -82,16 +87,16 @@ export function insertMulti(listUsername, amount, description) {
 
         dispatch(insertMultiAction(message));
 
-        if (message === 'OK'){
+        if (message === 'OK') {
             pushMessageSuccess()
-        }
-        else {
+        } else {
             pushMessageError(message);
         }
     }
 }
 
-async function insertOrderMulti(refMstUser, listId, amount, createdAt, description) {
+// Insert order multiple
+async function insertOrderMulti(refMstUser, listId, amount, createdAt, description, createdUser) {
     let message         = '';
     // Amount per user
     const amountPerUser = amount / listId.length;
@@ -102,15 +107,17 @@ async function insertOrderMulti(refMstUser, listId, amount, createdAt, descripti
         const transaction = refMstUser.doc(id).collection('transactions').doc();
 
         batch.set(order, {
-            amount     : amountPerUser,
-            created_at : createdAt,
-            description: description,
+            amount      : amountPerUser,
+            created_at  : createdAt,
+            created_user: createdUser,
+            description : description,
         })
 
         batch.set(transaction, {
-            amount     : 0 - amountPerUser,
-            created_at : createdAt,
-            description: 'Payment order ' + order.id,
+            amount      : 0 - amountPerUser,
+            created_at  : createdAt,
+            created_user: createdUser,
+            description : 'Payment order ' + order.id,
         })
     }
 

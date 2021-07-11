@@ -31,7 +31,8 @@ class Container extends Component {
 
     onOk = () => {
         const {targetKey, amount, description} = this.state;
-        this.props.insertMulti(targetKey, amount, description);
+        const {id, username}                   = this.props.auth;
+        this.props.insertMulti(targetKey, amount, description, id, username);
         this.onCancel();
     }
 
@@ -89,15 +90,16 @@ function mapDispatchToProps(dispatch) {
         fetchUser  : () => {
             dispatch(fetchUser());
         },
-        insertMulti: (list_username, amount, description) => {
-            dispatch(insertMulti(list_username, amount, description));
+        insertMulti: (list_username, amount, description, adminId, adminUsername) => {
+            dispatch(insertMulti(list_username, amount, description, adminId, adminUsername));
         },
     };
 }
 
 function mapStateToProps(state) {
     return {
-        orderLunch: state.orderLunch
+        orderLunch: state.orderLunch,
+        auth      : state.auth,
     }
 }
 

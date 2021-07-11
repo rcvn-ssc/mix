@@ -6,7 +6,7 @@ import {
     PENDING_FETCH_USER_ORDERS_ACTION,
     PENDING_FETCH_USER_TRANSACTIONS_ACTION,
 } from "./constants";
-import {default as db, fetchList, findOne} from "../../../database/firestore";
+import {default as db, fetchList, findByField} from "../../../database/firestore";
 
 const refMstUser = db.collection('mst_user')
 
@@ -14,7 +14,7 @@ const refMstUser = db.collection('mst_user')
 export function fetchUserGeneral(username) {
     return async dispatch => {
         dispatch(pendingFetchUserGeneralAction())
-        const res = await findOne(refMstUser.where('username', '==', username));
+        const res = await findByField(refMstUser.where('username', '==', username));
         if (res.data !== null) {
             const res_trans = await fetchList(refMstUser.doc(res.data.id).collection('transactions').orderBy('created_at', 'desc'))
             let balance = 0;
@@ -48,7 +48,7 @@ export function fetchUserTransactions(username) {
     return async dispatch => {
         dispatch(pendingFetchUserTransactionsAction())
         let trans = [];
-        const res = await findOne(refMstUser.where('username', '==', username));
+        const res = await findByField(refMstUser.where('username', '==', username));
         if (res.data !== null) {
             const res_trans = await fetchList(refMstUser.doc(res.data.id).collection('transactions').orderBy('created_at', 'desc'))
             if (res_trans.error.length === 0) {
@@ -78,7 +78,7 @@ export function fetchUserOrders(username) {
     return async dispatch => {
         dispatch(pendingFetchUserOrdersAction())
         let orders = [];
-        const res = await findOne(refMstUser.where('username', '==', username));
+        const res = await findByField(refMstUser.where('username', '==', username));
         if (res.data !== null) {
             const res_orders = await fetchList(refMstUser.doc(res.data.id).collection('orders').orderBy('created_at', 'desc'))
             if (res_orders.error.length === 0) {

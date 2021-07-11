@@ -5,7 +5,7 @@ import {
     ARG_TOKEN,
     PENDING_ACTION, REGISTER_ACTION,
 } from "./constants";
-import {default as db, findOne, insert} from "../../../database/firestore";
+import {default as db, findByField, insert} from "../../../database/firestore";
 import moment from "moment";
 
 const password_hash = require('password-hash');
@@ -24,7 +24,7 @@ export function login(params) {
     return async dispatch => {
         dispatch(pendingAction())
         if (message === '') {
-            const res  = await findOne(ref.where('username', '==', username))
+            const res  = await findByField(ref.where('username', '==', username))
             const data = res.data;
             if (data === null) {
                 message = 'Not found ' + username + '.';
@@ -91,7 +91,7 @@ export function register(params) {
     return async dispatch => {
         dispatch(pendingAction())
         if (message === '') {
-            const res  = await findOne(ref.where('username', '==', username))
+            const res  = await findByField(ref.where('username', '==', username))
             const data = res.data;
             if (data !== null) {
                 message = username + ' already exist.';
