@@ -30,9 +30,15 @@ class President extends Component {
                             </li>
                             {
                                 isAdmin ?
-                                <li className={pathName === "/" ? classItemActive : classItem}>
-                                    <Link to="/order-lunch">Order Lunch</Link>
-                                </li> : null
+                                    <li className={pathName === "/" ? classItemActive : classItem}>
+                                        <Link to="/order-lunch">Order lunch</Link>
+                                    </li> : null
+                            }
+                            {
+                                isAdmin ?
+                                    <li className={pathName === "/" ? classItemActive : classItem}>
+                                        <Link to="/pay-in">Pay in</Link>
+                                    </li> : null
                             }
                             <li className={pathName === "/contact" ? classItemActive : classItem}>
                                 <Link to="/contact">Contact</Link>

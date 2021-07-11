@@ -14,8 +14,11 @@ export const pushMessageSuccess = () => {
     AntMessage.success('Successfully');
 };
 
-export const pushMessageError = () => {
-    AntMessage.error('Sorry, something went wrong.');
+export const pushMessageError = (error = '') => {
+    if (error === ''){
+        error = 'Sorry, something went wrong.';
+    }
+    AntMessage.error(error);
 };
 
 export const pushMessageLoading = () => {

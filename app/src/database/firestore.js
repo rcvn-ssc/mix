@@ -4,12 +4,14 @@ import 'firebase/firestore';
 
 firebase.initializeApp(firebaseConfig);
 
-const db = firebase.firestore().collection('RIVER_CRANE_DEV').doc('ssc_lunch')
+export const firestore = firebase.firestore();
+const db          = firebase.firestore().collection('RIVER_CRANE_DEV').doc('ssc_lunch')
+export default db
 
 // Fetch data list
 export const fetchList = async (ref) => {
     let res = {
-        data: [],
+        data : [],
         error: []
     };
     await ref.get().then(snapshot => {
@@ -31,7 +33,7 @@ export const fetchList = async (ref) => {
 // Find one
 export const findOne = async (ref) => {
     let res = {
-        data: null,
+        data : null,
         error: []
     };
     await ref.limit(1).get().then(snapshot => {
@@ -55,17 +57,18 @@ export const findOne = async (ref) => {
 // Insert data
 export const insert = async (ref, data) => {
     let res = {
-        data: null,
+        data : null,
         error: []
     };
 
-    await ref.add(data).then(() => {
-        res.data = data;
+    await ref.add(data).then((docRef) => {
+        res.data = {
+            ...data,
+            id: docRef.id
+        };
     }).catch((error) => {
         res.error.push(error.message)
     })
 
     return res;
 }
-
-export default db

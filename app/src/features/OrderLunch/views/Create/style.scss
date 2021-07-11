@@ -1,0 +1,14 @@
+.order-lunch-create{
+  .order-lunch-form{
+    .order-lunch-form-transfer{
+      min-height: 500px;
+    }
+    .note-cash-in{
+      font-style: italic;
+      color: $colorDanger;
+    }
+    .button-order{
+      margin-top: $distanceBlock;
+    }
+  }
+}
