@@ -10,7 +10,7 @@ import {OrderLunchCreate} from "../features/OrderLunch";
 
 class Routes extends Component {
     render() {
-        const rules = [
+        const rolesAllowPayment = [
             'admin'
         ];
         return (
@@ -42,7 +42,7 @@ class Routes extends Component {
                 <PublicRoute path="/users/:id" layout='App' exact={true}>
                     <UserDetail/>
                 </PublicRoute>
-                <PrivateRoute path="/order-lunch" layout='App' exact={true}>
+                <PrivateRoute path="/order-lunch" layout='App' exact={true} roles={rolesAllowPayment}>
                     <OrderLunchCreate/>
                 </PrivateRoute>
                 {/*Private route*/}
