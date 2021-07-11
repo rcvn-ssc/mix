@@ -8,9 +8,9 @@ const {Option} = Select;
 
 class President extends Component {
     render() {
-        const {users, user, pendingFetchGeneral, pendingFetchUsers, pendingTransactionCreate} = this.props;
-        const {onChange, onChangeAmount, getNotePayIn, onFinish, onCancel, onOk} = this.props;
-        const {username, amount, description, modalVisible}                       = this.props;
+        const {users, user, pendingFetchGeneral, pendingFetchUsers, pendingTransactionCreate}         = this.props;
+        const {onChange, onChangeAmount, onChangeDescription, getNotePayIn, onFinish, onCancel, onOk} = this.props;
+        const {username, amount, description, modalVisible}                                           = this.props;
 
         const notAllow = username === null || user === null || amount <= 0;
         return (
@@ -28,7 +28,7 @@ class President extends Component {
                             <Card
                                 title={
                                     <div>
-                                        <CreditCardOutlined /> Pay in
+                                        <CreditCardOutlined/> Pay in
                                     </div>
                                 }
                             >
@@ -48,6 +48,7 @@ class President extends Component {
                                     <Form.Item name="description">
                                         <Input
                                             value={description}
+                                            onChange={event => onChangeDescription(event)}
                                             placeholder="Description"
                                             size="large"
                                         />

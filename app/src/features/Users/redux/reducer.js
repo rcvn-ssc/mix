@@ -9,32 +9,38 @@ import {
     PENDING_FETCH_USERS_ACTION,
     FETCH_USERS_ACTION,
 } from "./constants";
+import {LOCATION_CHANGE} from "connected-react-router";
 
 export function reducer(state = initialState, action) {
     let payload = action.payload;
     switch (action.type) {
+        case LOCATION_CHANGE:
+            return {
+                ...state,
+                ...initialState
+            }
         case FETCH_USERS_ACTION:
             return {
                 ...state,
                 pendingFetchUsers: false,
-                users: payload
+                users            : payload
             };
         case FETCH_USER_GENERAL_ACTION:
             return {
                 ...state,
-                user: payload,
+                user               : payload,
                 pendingFetchGeneral: false
             };
         case FETCH_USER_TRANSACTIONS_ACTION:
             return {
                 ...state,
-                transactions: payload,
+                transactions            : payload,
                 pendingFetchTransactions: false
             };
         case FETCH_USER_ORDERS_ACTION:
             return {
                 ...state,
-                orders: payload,
+                orders            : payload,
                 pendingFetchOrders: false
             };
         case PENDING_FETCH_USER_GENERAL_ACTION:

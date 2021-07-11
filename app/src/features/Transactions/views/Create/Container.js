@@ -50,6 +50,13 @@ class Container extends Component {
         })
     };
 
+    onChangeDescription = (e) => {
+        this.setState({
+            ...this.state,
+            description: e.currentTarget.value
+        })
+    };
+
     getNotePayIn = () => {
         const {amount, id} = this.state
         const {user}       = this.props.user
@@ -76,6 +83,7 @@ class Container extends Component {
             pendingTransactionCreate={pendingTransactionCreate}
             onChange={this.onChange}
             onChangeAmount={this.onChangeAmount}
+            onChangeDescription={this.onChangeDescription}
             getNotePayIn={this.getNotePayIn}
             onFinish={this.onFinish}
             onCancel={this.onCancel}

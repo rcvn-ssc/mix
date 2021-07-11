@@ -92,6 +92,23 @@ export const insert = async (ref, data) => {
     return res;
 }
 
+// Update data
+export const update = async (ref, id, data) => {
+    let res = {
+        data : null,
+        error: []
+    };
+
+    await ref.doc(id).update(data).then(() => {
+        res.data = true
+    }).catch((error) => {
+        res.error.push(error.message)
+    })
+
+    return res;
+}
+
+
 // Check is admin
 export const isAdmin = async (id) => {
     const auth = await findOne(refMstUser, id);

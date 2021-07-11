@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Tabs} from "antd";
-import {CreditCardOutlined, ShoppingCartOutlined} from "@ant-design/icons";
+import {CreditCardOutlined, ShoppingCartOutlined, LockOutlined} from "@ant-design/icons";
 import ListTransactions from "./ListTransactions";
 import ListOrders from "./ListOrders";
+import Password from "./Password";
 import moment from 'moment'
 
 class UserTabs extends Component {
@@ -16,7 +17,23 @@ class UserTabs extends Component {
     }
 
     render() {
-        const {orders, pendingFetchOrders, transactions, pendingFetchTransactions} = this.props;
+        const {
+                  orders,
+                  pendingFetchOrders,
+                  transactions,
+                  pendingFetchTransactions,
+                  isAuthUser,
+                  onChangePasswordOld,
+                  onChangePasswordNew,
+                  onChangePasswordConfirm,
+                  onCancel,
+                  onOk,
+                  onFinish,
+                  modalVisible,
+                  changePasswordPending,
+                  changePasswordDisabled,
+                  helperMessage,
+              } = this.props;
         return (
             <Tabs className="user-tabs">
                 <Tabs.TabPane tab={<span><CreditCardOutlined/> Transactions</span>}
@@ -38,6 +55,23 @@ class UserTabs extends Component {
                     }
 
                 </Tabs.TabPane>
+                {isAuthUser ?
+                    <Tabs.TabPane tab={<span><LockOutlined/> Password</span>}
+                                  key="tab-information" className="tab-item">
+                        <Password
+                            onChangePasswordOld={onChangePasswordOld}
+                            onChangePasswordNew={onChangePasswordNew}
+                            onChangePasswordConfirm={onChangePasswordConfirm}
+                            changePasswordPending={changePasswordPending}
+                            changePasswordDisabled={changePasswordDisabled}
+                            onCancel={onCancel}
+                            onOk={onOk}
+                            onFinish={onFinish}
+                            modalVisible={modalVisible}
+                            helperMessage={helperMessage}
+                        />
+                    </Tabs.TabPane> : null}
+
             </Tabs>
         )
     }

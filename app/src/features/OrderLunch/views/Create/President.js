@@ -5,10 +5,10 @@ import {ShoppingOutlined} from "@ant-design/icons";
 
 class President extends Component {
     render() {
-        const {users, pendingFetch, pendingOrderMulti}                            = this.props;
-        const {onChange, onChangeAmount, getNoteCashIn, onFinish, onCancel, onOk} = this.props;
-        const {targetKey, amount, description, modalVisible}                      = this.props;
-        const data                                                                = [];
+        const {users, pendingFetch, pendingOrderMulti}                                                 = this.props;
+        const {onChange, onChangeAmount, onChangeDescription, getNoteCashIn, onFinish, onCancel, onOk} = this.props;
+        const {targetKey, amount, description, modalVisible}                                           = this.props;
+        const data                                                                                     = [];
         for (let i = 0; i < users.length; i++) {
             data.push({
                 key      : users[i].username,
@@ -44,6 +44,7 @@ class President extends Component {
                                     <Form.Item name="description">
                                         <Input
                                             value={description}
+                                            onChange={event => onChangeDescription(event)}
                                             placeholder="Description"
                                             size="large"
                                         />

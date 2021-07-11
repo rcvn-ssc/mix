@@ -3,7 +3,11 @@ import {
     LOGIN_ACTION,
     SET_TOKEN_ACTION,
     CLEAR_TOKEN_ACTION,
-    ARG_TOKEN, PENDING_ACTION, REGISTER_ACTION
+    ARG_TOKEN,
+    PENDING_ACTION,
+    REGISTER_ACTION,
+    CHANGE_PASSWORD_ACTION,
+    CHANGE_PASSWORD_ACTION_PENDING,
 } from "./constants";
 
 export function reducer(state = initialState, action) {
@@ -27,6 +31,16 @@ export function reducer(state = initialState, action) {
                 pending: false,
                 message: action.payload
             }
+        case CHANGE_PASSWORD_ACTION:
+            return {
+                ...state,
+                changePasswordPending: false,
+            }
+        case CHANGE_PASSWORD_ACTION_PENDING:
+            return {
+                ...state,
+                changePasswordPending: true,
+            }
         case SET_TOKEN_ACTION:
         case CLEAR_TOKEN_ACTION:
         default:
@@ -42,22 +56,24 @@ function loadStateFromLocal() {
     try {
         let payload    = JSON.parse(localStorage.getItem(ARG_TOKEN));
         stateFromLocal = {
-            id: payload.id,
-            username: payload.username,
+            id       : payload.id,
+            username : payload.username,
             full_name: payload.full_name,
-            token: null,
-            role: payload.role,
-            message: null,
+            password : payload.password,
+            token    : null,
+            role     : payload.role,
+            message  : null,
         }
     } catch (e) {
         localStorage.removeItem(ARG_TOKEN)
         stateFromLocal = {
-            id: null,
-            username: null,
+            id       : null,
+            username : null,
             full_name: null,
-            token: null,
-            role: null,
-            message: null,
+            password : null,
+            token    : null,
+            role     : null,
+            message  : null,
         }
     }
     return stateFromLocal;

@@ -50,6 +50,13 @@ class Container extends Component {
         })
     };
 
+    onChangeDescription = (e) => {
+        this.setState({
+            ...this.state,
+            description: e.currentTarget.value
+        })
+    };
+
     getNoteCashIn = () => {
         let cashIn                = 0;
         const {amount, targetKey} = this.state
@@ -72,6 +79,7 @@ class Container extends Component {
             pendingOrderMulti={pendingOrderMulti}
             onChange={this.onChange}
             onChangeAmount={this.onChangeAmount}
+            onChangeDescription={this.onChangeDescription}
             getNoteCashIn={this.getNoteCashIn}
             onFinish={this.onFinish}
             onCancel={this.onCancel}
@@ -91,6 +99,7 @@ function mapDispatchToProps(dispatch) {
             dispatch(fetchUser());
         },
         insertMulti: (list_username, amount, description, adminId, adminUsername) => {
+            console.log('description', description)
             dispatch(insertMulti(list_username, amount, description, adminId, adminUsername));
         },
     };

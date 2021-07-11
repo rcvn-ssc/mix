@@ -8,14 +8,25 @@ import {
 class President extends Component {
     render() {
         const {
-            user,
-            pendingFetchGeneral,
-            orders,
-            pendingFetchOrders,
-            transactions,
-            pendingFetchTransactions,
-            generalMenu
-        } = this.props
+                  user,
+                  pendingFetchGeneral,
+                  orders,
+                  pendingFetchOrders,
+                  transactions,
+                  pendingFetchTransactions,
+                  generalMenu,
+                  onChangePasswordOld,
+                  onChangePasswordNew,
+                  onChangePasswordConfirm,
+                  changePasswordPending,
+                  changePasswordDisabled,
+                  onFinish,
+                  onCancel,
+                  onOk,
+                  modalVisible,
+                  isAuthUser,
+                  helperMessage,
+              } = this.props
         return (
             <div className="features feature-user">
                 <Row gutter={24}>
@@ -32,6 +43,17 @@ class President extends Component {
                             pendingFetchOrders={pendingFetchOrders}
                             transactions={transactions}
                             pendingFetchTransactions={pendingFetchTransactions}
+                            onChangePasswordOld={onChangePasswordOld}
+                            onChangePasswordNew={onChangePasswordNew}
+                            onChangePasswordConfirm={onChangePasswordConfirm}
+                            changePasswordPending={changePasswordPending}
+                            changePasswordDisabled={changePasswordDisabled}
+                            onFinish={onFinish}
+                            onCancel={onCancel}
+                            onOk={onOk}
+                            modalVisible={modalVisible}
+                            isAuthUser={isAuthUser}
+                            helperMessage={helperMessage}
                         />
                     </Col>
                 </Row>

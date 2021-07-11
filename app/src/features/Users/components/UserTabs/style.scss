@@ -17,4 +17,10 @@
             }
         }
     }
+    .password{
+        .helper-message{
+            font-style: italic;
+            color: $colorDanger;
+        }
+    }
 }
