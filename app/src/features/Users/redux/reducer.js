@@ -6,11 +6,19 @@ import {
     PENDING_FETCH_USER_GENERAL_ACTION,
     PENDING_FETCH_USER_TRANSACTIONS_ACTION,
     PENDING_FETCH_USER_ORDERS_ACTION,
+    PENDING_FETCH_USERS_ACTION,
+    FETCH_USERS_ACTION,
 } from "./constants";
 
 export function reducer(state = initialState, action) {
     let payload = action.payload;
     switch (action.type) {
+        case FETCH_USERS_ACTION:
+            return {
+                ...state,
+                pendingFetchUsers: false,
+                users: payload
+            };
         case FETCH_USER_GENERAL_ACTION:
             return {
                 ...state,
@@ -44,7 +52,11 @@ export function reducer(state = initialState, action) {
                 ...state,
                 pendingFetchOrders: true
             };
-
+        case PENDING_FETCH_USERS_ACTION:
+            return {
+                ...state,
+                pendingFetchUsers: true,
+            };
 
         default:
             return state

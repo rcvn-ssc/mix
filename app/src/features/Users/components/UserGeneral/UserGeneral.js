@@ -3,7 +3,7 @@ import {CreditCardOutlined, InfoCircleOutlined, ShoppingCartOutlined, UserOutlin
 import {Loading} from "../../../../layouts/Loading";
 import {Avatar, Card} from "antd";
 import img_user from "../../../../images/users/user.png";
-import {DataError} from "../../../../layouts"
+import {DataEmpty, DataError} from "../../../../layouts"
 import {Link} from "react-router-dom";
 
 class UserGeneral extends Component {
@@ -39,7 +39,7 @@ class UserGeneral extends Component {
     render() {
         const {user, pendingFetchGeneral} = this.props
         return (
-            <Card title={
+            <Card className="user-general" title={
                 <div>
                     <UserOutlined/> General
                 </div>
@@ -48,7 +48,7 @@ class UserGeneral extends Component {
                 {
                     pendingFetchGeneral ? <Loading/> :
                         (
-                            user === null ? <DataError/> :
+                            user === null ? <DataEmpty/> :
                                 <div className="user-data-wrapper">
                                     <div className="user-data avatar-wrapper text-center">
                                         <Avatar

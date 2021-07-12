@@ -7,6 +7,7 @@ import {UserDetail} from '../features/Users'
 import {Login, Register} from '../features/Auth'
 import {ErrorPage} from "../features/Exceptions";
 import {OrderLunchCreate} from "../features/OrderLunch";
+import {TransactionsCreate} from "../features/Transactions";
 
 class Routes extends Component {
     render() {
@@ -44,6 +45,9 @@ class Routes extends Component {
                 </PublicRoute>
                 <PrivateRoute path="/order-lunch" layout='App' exact={true} roles={rolesAllowPayment}>
                     <OrderLunchCreate/>
+                </PrivateRoute>
+                <PrivateRoute path="/pay-in" layout='App' roles={rolesAllowPayment}>
+                    <TransactionsCreate/>
                 </PrivateRoute>
                 {/*Private route*/}
 

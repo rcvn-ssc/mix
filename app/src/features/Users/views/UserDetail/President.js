@@ -18,8 +18,7 @@ class President extends Component {
         } = this.props
         return (
             <div className="features feature-user">
-                <Row gutter={24}
-                     className="user-detail">
+                <Row gutter={24}>
                     <Col xs={24} md={8}>
                         <UserGeneral
                             user={user}

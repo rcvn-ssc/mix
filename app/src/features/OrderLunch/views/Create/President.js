@@ -5,13 +5,14 @@ import {ShoppingOutlined} from "@ant-design/icons";
 
 class President extends Component {
     render() {
-        const {users, pendingFetch, pendingOrderMulti}                   = this.props;
+        const {users, pendingFetch, pendingOrderMulti}                            = this.props;
         const {onChange, onChangeAmount, getNoteCashIn, onFinish, onCancel, onOk} = this.props;
         const {targetKey, amount, description, modalVisible}                      = this.props;
         const data                                                                = [];
         for (let i = 0; i < users.length; i++) {
             data.push({
-                key: users[i].username,
+                key      : users[i].username,
+                full_name: users[i].full_name,
             });
         }
         const notAllow = targetKey.length === 0 || amount <= 0;
@@ -60,7 +61,7 @@ class President extends Component {
                                                 onChange={onChange}
                                                 oneWay={true}
                                                 showSelectAll={true}
-                                                render={user => user.key}
+                                                render={user => user.full_name}
                                                 listStyle={{
                                                     width : '100%',
                                                     height: 500,
@@ -70,7 +71,7 @@ class President extends Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col xs={{ span: 24, offset: 0 }} md={{ span: 8, offset: 8 }} className="button-order">
+                                <Col xs={{span: 24, offset: 0}} md={{span: 8, offset: 8}} className="button-order">
                                     <Form.Item>
                                         <Button type="primary"
                                                 htmlType="submit"

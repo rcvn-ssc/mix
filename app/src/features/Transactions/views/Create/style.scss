@@ -1,0 +1,13 @@
+.transactions-create{
+  @import "../../../Users/components/UserGeneral/style";
+  .pay-in-form{
+
+    .note-cash-in{
+      font-style: italic;
+      color: $colorDanger;
+    }
+    .button-order{
+      margin-top: $distanceBlock;
+    }
+  }
+}

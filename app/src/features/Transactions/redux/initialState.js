@@ -7,14 +7,8 @@
 // NOTE: initialState constant is necessary so that Rekit could auto add initial state when creating async actions.
 
 const initialState = {
-    user                    : null,
-    users                   : [],
-    orders                  : [],
-    transactions            : [],
-    pendingFetchGeneral     : false,
-    pendingFetchTransactions: false,
-    pendingFetchOrders      : false,
-    pendingFetchUsers       : false,
+    message: '',
+    pendingTransactionCreate: false,
 };
 
 export default initialState;

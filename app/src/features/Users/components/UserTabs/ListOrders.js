@@ -42,6 +42,14 @@ class ListOrders extends Component {
                                                 {formatCreatedAt(item.created_at)}
                                             </span>
                                           </div>
+                                          <div className="item-data">
+                                            <span className="item-data-key">
+                                                Created user:
+                                            </span>
+                                              <span className="item-data-value">
+                                                {item.created_user !== undefined ? item.created_user : "-"}
+                                            </span>
+                                          </div>
                                       </List.Item>
                                   )}
                             />
